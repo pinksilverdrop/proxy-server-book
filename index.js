@@ -23,8 +23,8 @@ app.use("/weather-data", (req, res, next) => {
     pathRewrite: {
       [`^/weather-data`]: "",
     },
-  })
-})
+  })(req, res, next);
+});
 
 app.use("/corona-tracker-world-data", limiter, (req, res, next) => {
   createProxyMiddleware({
