@@ -3,6 +3,7 @@ const app = express();
 const {createProxyMiddleware} = require("http-proxy-middleware");
 const rateLimit = require("express-rate-limit");
 require("dotenv").config();
+const url = require("url");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -21,7 +22,7 @@ app.use("/weather-data", (req, res, next) => {
     target: `${process.env.BASE_API_URL_WEATHERAPI}${city}&api=no`,
     changeOrigin: true,
     pathRewrite: {
-      [`^/weather-data`]: "",
+      [`^"/weather-data`]: "",
     },
   })(req, res, next);
 });
